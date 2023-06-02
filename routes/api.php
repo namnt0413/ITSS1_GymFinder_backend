@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,15 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::group([ 'as' => ''], function () {
+    // User
+    // Route::apiResource('users', \App\Http\Controllers\Api\UserController::class);    TH su dung api resource
+    Route::name('users.')->prefix('user')->group(function () {
+        Route::get('/all', [UserController::class, 'all'])->name('all');
+
+    });
+
+});
+
