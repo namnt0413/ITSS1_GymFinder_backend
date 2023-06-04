@@ -6,9 +6,10 @@ use Carbon\Carbon;
 
 class UserService
 {
-    public function getAllUsers()
+    public function getRecentGyms()
     {
-        $users = User::all();
-        return $users;
+        $recentGyms = User::select('*')->where([ 'status' => 1 ])->where([ 'type' => 2 ])
+        ->orderBy('created_at','desc')->limit(5)->with('address')->get();
+        return $recentGyms;
     }
 }
