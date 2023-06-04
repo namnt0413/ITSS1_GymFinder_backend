@@ -14,13 +14,12 @@ class UserController extends Controller
     public function __construct( UserService $UserService){
         $this->UserService = $UserService;
     }
-
-    public function all()
+    public function recentGyms()
     {
-        $users = $this->UserService->getAllUsers();
-        if ( $users ) {
+        $recentGyms = $this->UserService->getRecentGyms();
+        if ( $recentGyms ) {
             return response([
-                'data' => $users,
+                'data' => $recentGyms,
                 'message' => 'OK'
             ],200);
         } else {

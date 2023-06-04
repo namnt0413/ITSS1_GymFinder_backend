@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,8 +25,12 @@ Route::group([ 'as' => ''], function () {
     // User
     // Route::apiResource('users', \App\Http\Controllers\Api\UserController::class);    TH su dung api resource
     Route::name('users.')->prefix('user')->group(function () {
-        Route::get('/all', [UserController::class, 'all'])->name('all');
+        Route::get('/recent-gyms', [UserController::class, 'recentGyms']);
+    });
 
+    // Post
+    Route::name('posts.')->prefix('post')->group(function () {
+        Route::get('/recent-posts', [PostController::class, 'recentPosts']);
     });
 
 });
