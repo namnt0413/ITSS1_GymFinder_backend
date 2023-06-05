@@ -29,4 +29,19 @@ class UserController extends Controller
         }
     }
 
+    public function listGyms()
+    {
+        $listGyms = $this->UserService->getListGyms();
+        if ( $listGyms ) {
+            return response([
+                'data' => $listGyms,
+                'message' => 'OK'
+            ],200);
+        } else {
+            return response([
+                'message' => 'Error'
+            ],400);
+        }
+    }
+
 }

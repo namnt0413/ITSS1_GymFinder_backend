@@ -26,6 +26,7 @@ Route::group([ 'as' => ''], function () {
     // Route::apiResource('users', \App\Http\Controllers\Api\UserController::class);    TH su dung api resource
     Route::name('users.')->prefix('user')->group(function () {
         Route::get('/recent-gyms', [UserController::class, 'recentGyms']);
+        Route::get('/list-gyms', [UserController::class, 'listGyms']);
     });
 
     // Post
