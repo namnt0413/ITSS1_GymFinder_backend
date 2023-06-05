@@ -12,4 +12,12 @@ class PostService
         ->orderBy('created_at','desc')->limit(5)->with('user:id,name,logo')->get();
         return $recentPosts;
     }
+
+    public function filterPosts($request)
+    {
+        $filterPosts = Post::select('*')->where([ 'status' => 2 ])
+        ->where('title', 'LIKE', '%' . $request->title . '%')->with('user:id,name,logo')->get();
+        return $filterPosts;
+    }
+
 }
