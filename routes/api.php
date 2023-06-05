@@ -27,11 +27,14 @@ Route::group([ 'as' => ''], function () {
     Route::name('users.')->prefix('user')->group(function () {
         Route::get('/recent-gyms', [UserController::class, 'recentGyms']);
         Route::get('/list-gyms', [UserController::class, 'listGyms']);
+        Route::get('/filter-gyms', [UserController::class, 'filterGyms']);
     });
 
     // Post
     Route::name('posts.')->prefix('post')->group(function () {
         Route::get('/recent-posts', [PostController::class, 'recentPosts']);
+        Route::get('/filter-posts', [PostController::class, 'filterPosts']);
+
     });
 
 });

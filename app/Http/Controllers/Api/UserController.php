@@ -44,4 +44,19 @@ class UserController extends Controller
         }
     }
 
+    public function filterGyms(Request $request)
+    {
+        $filterGyms = $this->UserService->getFilterGyms($request);
+        if ( $filterGyms ) {
+            return response([
+                'data' => $filterGyms,
+                'message' => 'OK'
+            ],200);
+        } else {
+            return response([
+                'message' => 'Error'
+            ],400);
+        }
+    }
+
 }

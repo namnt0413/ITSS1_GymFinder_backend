@@ -20,4 +20,14 @@ class UserService
         return $listGyms;
     }
 
+    public function getFilterGyms($request)
+    {
+        $filterGyms = User::selectRaw('DISTINCT users.id , users.name , users.status , users.type , users.logo ,
+        users.description, addresses.address , addresses.city')
+        ->join('options','users.id','=','options.user_id')->join('addresses','users.id','=','addresses.user_id')
+        ->where([ 'status' => 1 ])->where([ 'type' => 2 ])
+        ->where('users.name', 'LIKE', '%' . $request->name . '%')->where('options.title', 'LIKE', '%' . $request->option . '%')->get();
+        return $filterGyms;
+    }
+
 }

@@ -29,4 +29,19 @@ class PostController extends Controller
             ],400);
         }
     }
+
+    public function filterPosts(Request $request)
+    {
+        $filterPosts = $this->PostService->filterPosts($request);
+        if ( $filterPosts ) {
+            return response([
+                'data' => $filterPosts,
+                'message' => 'OK'
+            ],200);
+        } else {
+            return response([
+                'message' => 'Error'
+            ],400);
+        }
+    }
 }
