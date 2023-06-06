@@ -11,8 +11,9 @@ class Option extends Model
     protected $guarded = ['id','created_at','updated_at'];
     protected $table = 'options';
 
-    public function user()
+
+    public function userOption()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class, 'user_options', 'option_id', 'user_id');
     }
 }
