@@ -59,4 +59,19 @@ class UserController extends Controller
         }
     }
 
+    public function detailGym($id)
+    {
+        $gym = $this->UserService->getDetailGym($id);
+        if ( $gym ) {
+            return response([
+                'data' => $gym,
+                'message' => 'OK'
+            ],200);
+        } else {
+            return response([
+                'message' => 'Error'
+            ],400);
+        }
+    }
+
 }

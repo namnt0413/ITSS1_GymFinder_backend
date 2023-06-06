@@ -29,6 +29,7 @@ Route::group([ 'as' => ''], function () {
         Route::get('/recent-gyms', [UserController::class, 'recentGyms']);
         Route::get('/list-gyms', [UserController::class, 'listGyms']);
         Route::get('/filter-gyms', [UserController::class, 'filterGyms']);
+        Route::get('/detail-gym/{id}', [UserController::class, 'detailGym']);
     });
 
     // Post
