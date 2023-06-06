@@ -49,4 +49,11 @@ class UserService
         return $filterGyms;
     }
 
+    public function getDetailGym($id)
+    {
+        $gym = User::where(["id" => $id])
+        ->with('address','userOption')->get();
+        return $gym;
+    }
+
 }
