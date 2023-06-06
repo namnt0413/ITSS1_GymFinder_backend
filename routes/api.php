@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\PostController;
+use App\Http\Controllers\Api\OptionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +35,11 @@ Route::group([ 'as' => ''], function () {
     Route::name('posts.')->prefix('post')->group(function () {
         Route::get('/recent-posts', [PostController::class, 'recentPosts']);
         Route::get('/filter-posts', [PostController::class, 'filterPosts']);
+    });
 
+    // Option
+    Route::name('options.')->prefix('option')->group(function () {
+        Route::get('/all', [OptionController::class, 'all']);
     });
 
 });
