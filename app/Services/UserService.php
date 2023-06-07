@@ -36,7 +36,6 @@ class UserService
             ->with('address')
             ->whereRaw($queryRaw)
             ->get();
-
         }  else {
             $filterGyms = User::selectRaw('DISTINCT users.id , users.name , users.status , users.type , users.logo , users.description , users.created_at',)
             ->join('user_options','users.id','=','user_options.user_id')
