@@ -55,4 +55,10 @@ class UserService
         return $gym;
     }
 
+    public function findOrFailById($id)
+    {
+        $user = User::findOrFail($id);
+        return $user;
+    }
+
 }

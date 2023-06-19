@@ -7,57 +7,61 @@ use App\Http\Requests\PostRequest;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Services\PostService;
+use App\Services\UserService;
 
 class PostController extends Controller
 {
-    private $PostService;
+    private $postService;
+    private $userService;
 
-    public function __construct( PostService $PostService){
-        $this->PostService = $PostService;
+    public function __construct(PostService $postService, UserService $userService)
+    {
+        $this->postService = $postService;
+        $this->userService = $userService;
     }
 
     public function recentPosts()
     {
-        $recentPosts = $this->PostService->getRecentPosts();
-        if ( $recentPosts ) {
+        $recentPosts = $this->postService->getRecentPosts();
+        if ($recentPosts) {
             return response([
                 'data' => $recentPosts,
                 'message' => 'OK'
-            ],200);
+            ], 200);
         } else {
             return response([
                 'message' => 'Error'
-            ],400);
+            ], 400);
         }
     }
 
     public function filterPosts(Request $request)
     {
-        $filterPosts = $this->PostService->filterPosts($request);
-        if ( $filterPosts ) {
+        $filterPosts = $this->postService->filterPosts($request);
+        if ($filterPosts) {
             return response([
                 'data' => $filterPosts,
                 'message' => 'OK'
-            ],200);
+            ], 200);
         } else {
             return response([
                 'message' => 'Error'
-            ],400);
+            ], 400);
         }
     }
 
     public function detailPost($id)
     {
-        $post = $this->PostService->getDetailPost($id);
-        if ( $post ) {
+        $post = $this->postService->getDetailPost($id);
+        if ($post) {
             return response([
                 'data' => $post,
                 'message' => 'OK'
-            ],200);
+            ], 200);
         } else {
             return response([
                 'message' => 'Error'
-            ],400);
+            ], 400);
         }
     }
 
@@ -66,36 +70,62 @@ class PostController extends Controller
         Post::create($request->validated());
         return response([
             'message' => 'Create new post successfully'
-        ],200);
+        ], 200);
     }
 
-    public function edit(PostRequest $request , $id)
+    public function edit(PostRequest $request, $id)
     {
         $post = Post::find($id);
-        if ( $post ) {
-            $post->update($request->validated());
-            return response([
-                'message' => 'Edit post successfully'
-            ],200);
+        if ($post) {
+            if ($request->user_id != '') {
+                $user = $this->userService->findOrFailById($request->user_id);
+                if ($user->can('edit', $post)) {
+                    $post->update($request->validated());
+                    return response([
+                        'message' => 'Edit post successfully'
+                    ], 200);
+                } else {
+                    return response([
+                        'message' => 'Do not have permission'
+                    ], 404);
+                }
+            } else {
+                return response([
+                    'message' => 'Please sign in/up account to do this action'
+                ], 404);
+            }
         } else {
             return response([
                 'message' => 'This post is not exist'
-            ],400);
+            ], 404);
         }
     }
 
-    public function delete($id)
+    public function delete(Request $request, $id)
     {
         $post = Post::find($id);
-        if ( $post ) {
-            $post->delete();
-            return response([
-                'message' => 'Delete post successfully'
-            ],200);
+        if ($post) {
+            if ($request->user_id != '') {
+                $user = $this->userService->findOrFailById($request->user_id);
+                if ($user->can('delete', $post)) {
+                    $post->delete();
+                    return response([
+                        'message' => 'Delete post successfully'
+                    ], 200);
+                } else {
+                    return response([
+                        'message' => 'Do not have permission'
+                    ], 404);
+                }
+            } else {
+                return response([
+                    'message' => 'Please sign in/up account to do this action'
+                ], 404);
+            }
         } else {
             return response([
                 'message' => 'This post is not exist'
-            ],400);
+            ], 400);
         }
     }
 

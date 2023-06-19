@@ -9,14 +9,14 @@ use App\Services\UserService;
 
 class UserController extends Controller
 {
-    private $UserService;
+    private $userService;
 
-    public function __construct( UserService $UserService){
-        $this->UserService = $UserService;
+    public function __construct( UserService $userService){
+        $this->userService = $userService;
     }
     public function recentGyms()
     {
-        $recentGyms = $this->UserService->getRecentGyms();
+        $recentGyms = $this->userService->getRecentGyms();
         if ( $recentGyms ) {
             return response([
                 'data' => $recentGyms,
@@ -31,7 +31,7 @@ class UserController extends Controller
 
     public function listGyms()
     {
-        $listGyms = $this->UserService->getListGyms();
+        $listGyms = $this->userService->getListGyms();
         if ( $listGyms ) {
             return response([
                 'data' => $listGyms,
@@ -46,7 +46,7 @@ class UserController extends Controller
 
     public function filterGyms(Request $request)
     {
-        $filterGyms = $this->UserService->getFilterGyms($request);
+        $filterGyms = $this->userService->getFilterGyms($request);
 
         if ( $filterGyms ) {
             return response([
@@ -62,7 +62,7 @@ class UserController extends Controller
 
     public function detailGym($id)
     {
-        $gym = $this->UserService->getDetailGym($id);
+        $gym = $this->userService->getDetailGym($id);
         if ( $gym ) {
             return response([
                 'data' => $gym,
