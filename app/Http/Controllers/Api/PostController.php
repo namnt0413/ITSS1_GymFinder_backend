@@ -44,4 +44,20 @@ class PostController extends Controller
             ],400);
         }
     }
+
+    public function detailPost($id)
+    {
+        $post = $this->PostService->getDetailPost($id);
+        if ( $post ) {
+            return response([
+                'data' => $post,
+                'message' => 'OK'
+            ],200);
+        } else {
+            return response([
+                'message' => 'Error'
+            ],400);
+        }
+    }
+
 }

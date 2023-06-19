@@ -36,6 +36,7 @@ Route::group([ 'as' => ''], function () {
     Route::name('posts.')->prefix('post')->group(function () {
         Route::get('/recent-posts', [PostController::class, 'recentPosts']);
         Route::post('/filter-posts', [PostController::class, 'filterPosts']);
+        Route::get('/detail-post/{id}', [PostController::class, 'detailPost']);
     });
 
     // Option
