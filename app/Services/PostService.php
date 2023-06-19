@@ -15,9 +15,6 @@ class PostService
 
     public function filterPosts($request)
     {
-        // $filterPosts = Post::select('*')->where([ 'status' => 2 ])
-        // ->where('title', 'LIKE', '%' . $request->title . '%')->with('user:id,name,logo')->get();
-
         $queryRaw = "";
         if(sizeof($request->options) !== 0) {
             foreach($request->options as $option)
@@ -41,6 +38,13 @@ class PostService
             ->with('user:id,name,logo')->get();
         }
         return $filterPosts;
+    }
+
+    public function getDetailPost($id)
+    {
+        $post = Post::where(["id" => $id])
+        ->with('user:id,name,logo')->get();
+        return $post;
     }
 
 }
