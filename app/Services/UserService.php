@@ -61,4 +61,10 @@ class UserService
         return $user;
     }
 
+    public function findByEmail($email)
+    {
+        $user = User::where(["email" => $email])->first();
+        return $user;
+    }
+
 }
