@@ -29,6 +29,8 @@ Route::group([ 'as' => ''], function () {
         Route::get('/list-gyms', [UserController::class, 'listGyms']);
         Route::post('/filter-gyms', [UserController::class, 'filterGyms']);
         Route::get('/detail-gym/{id}', [UserController::class, 'detailGym']);
+        Route::post('/login', [UserController::class, 'login']);
+        Route::post('/register', [UserController::class, 'register']);
     });
 
     // Post

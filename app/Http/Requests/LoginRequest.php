@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
-class PostRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,22 +24,16 @@ class PostRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'         => 'required',
-            'content'       => 'required',
-            'status'        => 'required',
-            'image'         => 'required',
-            'user_id'       => 'required',
+            'email'         => 'required',
+            'password'       => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'title.required'          => 'title is required',
-            'content.required'       => 'content is required',
-            'status.required'        => 'status is required',
-            'image.required'         => 'image is required',
-            'user_id.required'       => 'user_id is required',
+            'email.required'          => 'email is required',
+            'password.required'       => 'password is required',
         ];
     }
 
@@ -52,5 +46,4 @@ class PostRequest extends FormRequest
             'data'      => $validator->errors()
         ],400));
     }
-
 }
