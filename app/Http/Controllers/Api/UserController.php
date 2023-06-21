@@ -125,6 +125,7 @@ class UserController extends Controller
             ]);
         }
         return response([
+            'data' => $createdUser,
             'message' => 'Create new post successfully'
         ], 200);
     }
