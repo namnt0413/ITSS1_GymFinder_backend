@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Models\UserOption;
+use App\Models\Address;
 use App\Models\User;
 use App\Services\UserService;
-use PHPUnit\Framework\Constraint\IsEmpty;
 
 class UserController extends Controller
 {
@@ -101,9 +103,30 @@ class UserController extends Controller
         }
     }
 
-    public function register()
+    public function register(RegisterRequest $registerRequest)
     {
+        User::create(
+            $registerRequest->validated(),
+        );
+        $createdUser = User::latest()->first();
+        Address::create([
+            'user_id' => $createdUser->id,
+            'city' => "Test",
+            'address' => $registerRequest->address,
+        ]);
 
+        foreach ($registerRequest->options as $option ) {
+            UserOption::create([
+                'user_id' => $createdUser->id,
+                'option_id' => $option['option_id'],
+                'title' => $option['title'],
+                'description' => $option['description'],
+                'image' => $option['image'],
+            ]);
+        }
+        return response([
+            'message' => 'Create new post successfully'
+        ], 200);
     }
 
 }
