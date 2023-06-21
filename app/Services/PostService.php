@@ -33,7 +33,7 @@ class PostService
             $filterPosts = Post::selectRaw('DISTINCT posts.id,posts.title,posts.content,posts.image,posts.user_id,posts.created_at',)
             ->join('users','posts.user_id','=','users.id')
             ->join('user_options','users.id','=','user_options.user_id')
-            ->where([ 'status' => 2 ])
+            ->where([ 'posts.status' => 2 ])
             ->where('posts.title', 'LIKE', '%' . $request->title . '%')
             ->with('user:id,name,logo')->get();
         }
