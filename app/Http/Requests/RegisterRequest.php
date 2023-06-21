@@ -24,22 +24,42 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'         => 'required',
-            'content'       => 'required',
-            'status'        => 'required',
-            'image'         => 'required',
-            'user_id'       => 'required',
+            'email'         => 'required|unique:users',
+            'password'       => 'required',
+            'name'        => 'required|unique:users',
+            'phone_num'         => 'required',
+            'logo'         => 'required',
+            'image1'         => 'required',
+            'address'         => 'required',
+            'description'         => 'required',
+            'type'         => 'required',
+            'image2'         => 'nullable',
+            'image3'         => 'nullable',
+            'image4'         => 'nullable',
+            'image5'         => 'nullable',
+            'options'         => 'array',
         ];
     }
 
     public function messages()
     {
         return [
-            'title.required'          => 'title is required',
-            'content.required'       => 'content is required',
-            'status.required'        => 'status is required',
-            'image.required'         => 'image is required',
-            'user_id.required'       => 'user_id is required',
+            'email.required'          => 'email is required',
+            'email.unique'          => 'email is unique',
+            'password.required'       => 'password is required',
+            'name.required'        => 'name is required',
+            'name.unique'        => 'name is unique',
+            'phone_num.required'         => 'phone_num is required',
+            'logo.required'         => 'logo is required',
+            'image1.required'         => 'image1 is required',
+            'address.required'         => 'address is required',
+            'description.required'         => 'description is required',
+            'type.required'         => 'type is required',
+            'image2.nullable'         => 'image2 is nullable',
+            'image3.nullable'         => 'image3 is nullable',
+            'image4.nullable'         => 'image4 is nullable',
+            'image5.nullable'         => 'image5 is nullable',
+            'options.array'         => 'options is array',
         ];
     }
 
