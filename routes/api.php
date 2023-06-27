@@ -31,6 +31,7 @@ Route::group([ 'as' => ''], function () {
         Route::get('/detail-gym/{id}', [UserController::class, 'detailGym']);
         Route::post('/login', [UserController::class, 'login']);
         Route::post('/register', [UserController::class, 'register']);
+        Route::get('/all-accounts', [UserController::class, 'allAccounts']);
     });
 
     // Post

@@ -67,4 +67,9 @@ class UserService
         return $user;
     }
 
+    public function getAllAccounts() {
+        $user = User::select('*')->with('address','userOption')->get();
+        return $user;
+    }
+
 }

@@ -136,4 +136,18 @@ class UserController extends Controller
         ], 200);
     }
 
+    public function allAccounts() {
+        $allAccounts = $this->userService->getAllAccounts();
+        if ($allAccounts) {
+            return response([
+                'data' => $allAccounts,
+                'message' => 'OK'
+            ], 200);
+        } else {
+            return response([
+                'message' => 'Error'
+            ], 400);
+        }
+    }
+
 }
