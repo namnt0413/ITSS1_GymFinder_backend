@@ -129,4 +129,34 @@ class PostController extends Controller
         }
     }
 
+    public function managePost(Request $request)
+    {
+        $post = Post::find($request->post_id);
+        if ($post) {
+            if ($request->user_id != '') {
+                $user = $this->userService->findOrFailById($request->user_id);
+                if ($user->type == 'admin') {
+                    $post->update([
+                        'status' => $request->status
+                    ]);
+                    return response([
+                        'message' => 'Change post status successfully'
+                    ], 200);
+                } else {
+                    return response([
+                        'message' => 'Only admin have permission'
+                    ], 404);
+                }
+            } else {
+                return response([
+                    'message' => 'Please sign in/up account to do this action'
+                ], 404);
+            }
+        } else {
+            return response([
+                'message' => 'This post is not exist'
+            ], 404);
+        }
+    }
+
 }

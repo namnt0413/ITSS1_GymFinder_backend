@@ -132,7 +132,7 @@ class UserController extends Controller
         }
         return response([
             'data' => $createdUser,
-            'message' => 'Create new post successfully'
+            'message' => 'Create new gym successfully'
         ], 200);
     }
 
@@ -147,6 +147,36 @@ class UserController extends Controller
             return response([
                 'message' => 'Error'
             ], 400);
+        }
+    }
+
+    public function manageGym(Request $request)
+    {
+        $gym = User::find($request->gym_id);
+        if ($gym) {
+            if ($request->user_id != '') {
+                $user = $this->userService->findOrFailById($request->user_id);
+                if ($user->type == 'admin') {
+                    $gym->update([
+                        'status' => $request->status
+                    ]);
+                    return response([
+                        'message' => 'Change gym status successfully'
+                    ], 200);
+                } else {
+                    return response([
+                        'message' => 'Only admin have permission'
+                    ], 404);
+                }
+            } else {
+                return response([
+                    'message' => 'Please sign in/up account to do this action'
+                ], 404);
+            }
+        } else {
+            return response([
+                'message' => 'This gym is not exist'
+            ], 404);
         }
     }
 
