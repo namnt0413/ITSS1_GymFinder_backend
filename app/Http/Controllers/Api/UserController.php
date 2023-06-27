@@ -86,10 +86,16 @@ class UserController extends Controller
             $user = $this->userService->findByEmail($loginRequest->email);
             if ($user != null) {
                 if (strcmp($loginRequest->password, $user->password) == 0) {
-                    return response([
-                        'data' => $user,
-                        'message' => 'Login success'
-                    ], 200);
+                    if ( $user->status == 'active' ) {
+                        return response([
+                            'data' => $user,
+                            'message' => 'Login success'
+                        ], 200);
+                    } else {
+                        return response([
+                            'message' => 'This gym account is not active'
+                        ], 400);
+                    }
                 } else {
                     return response([
                         'message' => 'Password is wrong'
