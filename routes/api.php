@@ -31,6 +31,8 @@ Route::group([ 'as' => ''], function () {
         Route::get('/detail-gym/{id}', [UserController::class, 'detailGym']);
         Route::post('/login', [UserController::class, 'login']);
         Route::post('/register', [UserController::class, 'register']);
+        Route::get('/all-accounts', [UserController::class, 'allAccounts']);
+        Route::put('/manage-gym', [UserController::class, 'manageGym']);
     });
 
     // Post
@@ -41,7 +43,7 @@ Route::group([ 'as' => ''], function () {
         Route::post('/create', [PostController::class, 'create']);
         Route::put('/edit/{id}', [PostController::class, 'edit']);
         Route::delete('/delete/{id}', [PostController::class, 'delete']);
-
+        Route::put('/manage-post', [PostController::class, 'managePost']);
     });
 
     // Option
