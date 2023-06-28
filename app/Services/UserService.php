@@ -68,7 +68,8 @@ class UserService
     }
 
     public function getAllAccounts() {
-        $user = User::select('*')->with('address','userOption')->get();
+        $user = User::select('*')->where([ 'type' => 2 ])
+        ->orderBy('created_at','desc')->with('address','userOption')->get();
         return $user;
     }
 

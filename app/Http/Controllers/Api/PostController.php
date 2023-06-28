@@ -159,4 +159,18 @@ class PostController extends Controller
         }
     }
 
+    public function allPosts() {
+        $allPosts = $this->postService->getAllPosts();
+        if ($allPosts) {
+            return response([
+                'data' => $allPosts,
+                'message' => 'OK'
+            ], 200);
+        } else {
+            return response([
+                'message' => 'Error'
+            ], 400);
+        }
+    }
+
 }

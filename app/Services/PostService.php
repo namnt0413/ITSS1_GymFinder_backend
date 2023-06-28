@@ -47,4 +47,11 @@ class PostService
         return $post;
     }
 
+    public function getAllPosts()
+    {
+        $posts = Post::select('*')
+        ->orderBy('created_at','desc')->with('user:id,name,logo')->get();
+        return $posts;
+    }
+
 }
