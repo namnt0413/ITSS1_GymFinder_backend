@@ -43,6 +43,7 @@ Route::group([ 'as' => ''], function () {
         Route::post('/create', [PostController::class, 'create']);
         Route::put('/edit/{id}', [PostController::class, 'edit']);
         Route::delete('/delete/{id}', [PostController::class, 'delete']);
+        Route::get('/all-posts', [PostController::class, 'allPosts']);
         Route::put('/manage-post', [PostController::class, 'managePost']);
     });
 
