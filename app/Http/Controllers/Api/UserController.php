@@ -111,10 +111,10 @@ class UserController extends Controller
 
     public function register(RegisterRequest $registerRequest)
     {
-        User::create(
+        $createdUser = User::create(
             $registerRequest->validated(),
         );
-        $createdUser = User::latest()->first();
+        // $createdUser = User::latest()->first();
         Address::create([
             'user_id' => $createdUser->id,
             'city' => "Test",
